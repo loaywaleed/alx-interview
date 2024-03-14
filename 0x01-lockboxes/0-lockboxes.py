@@ -16,12 +16,12 @@ def canUnlockAll(boxes):
             for key in boxes[i]:
                 try:
                     tate_of_boxes[key] = True
+                    for j in range(0, len(unchecked)):
+                        if key == unchecked[j]:
+                            for key in boxes[unchecked[j]]:
+                                state_of_boxes[key] = True
                 except:
                     pass
-                for j in range(0, len(unchecked)):
-                    if key == unchecked[j]:
-                        for key in boxes[unchecked[j]]:
-                            state_of_boxes[key] = True
         else:
             unchecked.append(i)
 
