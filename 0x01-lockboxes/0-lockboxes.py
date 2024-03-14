@@ -5,6 +5,7 @@ Script that checks if all boxes can be unlocked
 
 
 def canUnlockAll(boxes):
+    """Function that checks if we can unlock all the boxes"""
     state_of_boxes = [True]
     unchecked = []
     for item in range(1, len(boxes)):
