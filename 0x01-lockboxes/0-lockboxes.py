@@ -14,7 +14,10 @@ def canUnlockAll(boxes):
     for i in range(0, len(boxes)):
         if state_of_boxes[i] is True:
             for key in boxes[i]:
-                state_of_boxes[key] = True
+                try:
+                    tate_of_boxes[key] = True
+                except:
+                    pass
                 for j in range(0, len(unchecked)):
                     if key == unchecked[j]:
                         for key in boxes[unchecked[j]]:
