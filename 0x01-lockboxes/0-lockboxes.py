@@ -5,27 +5,13 @@ Script that checks if all boxes can be unlocked
 
 
 def canUnlockAll(boxes):
-    """Function that checks if we can unlock all the boxes"""
-    state_of_boxes = [True]
-    unchecked = []
-    for item in range(1, len(boxes)):
-        state_of_boxes.append(False)
-
-    for i in range(0, len(boxes)):
-        if state_of_boxes[i] is True:
-            for key in boxes[i]:
-                try:
-                    tate_of_boxes[key] = True
-                    for j in range(0, len(unchecked)):
-                        if key == unchecked[j]:
-                            for key in boxes[unchecked[j]]:
-                                state_of_boxes[key] = True
-                except:
-                    pass
-        else:
-            unchecked.append(i)
-
-    for i in state_of_boxes:
-        if i is False:
-            return False
-    return True
+    """Function that checks if we can unlock all the boxes using BFS"""
+    visited = set()
+    queue = [0]
+    while queue:
+        current_box = queue.pop(0)
+        if current_box not in visited:
+            for key in boxes[current_box]:
+                queue.append(key)
+            visited.add(current_box)
+    return len(boxes) == len(visited)
