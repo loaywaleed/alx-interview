@@ -3,7 +3,7 @@
 const request = require('request');
 const number = process.argv[2];
 
-request(`https://swapi.dev/api/films/${number}`, (err, res, body) => {
+request(`https://swapi.dev/api/films/${number}`, async (err, res, body) => {
   if (err) {
     console.log(err);
     return;
@@ -12,17 +12,20 @@ request(`https://swapi.dev/api/films/${number}`, (err, res, body) => {
     const film = JSON.parse(body);
     const charactersUrls = film.characters;
     console.log(film.title);
-    charactersUrls.forEach(element => {
-      request(element, (err, res, body2) => {
-        if (err) {
-          console.log(err);
-          return err;
-        }
-        if (res.statusCode === 200) {
-          const data2 = JSON.parse(body2);
-          console.log(data2.name);
-        }
-      });
-    });
+    for (const element of JSON.parse(body).characters) {
+      await new Promise((resolve, reject) => {
+        request(element, (err, res, body2) => {
+          if (err) {
+            console.log(err);
+            reject(err);
+          }
+          if (res.statusCode === 200) {
+            const data2 = JSON.parse(body2);
+            console.log(data2.name);
+            resolve()
+          }
+        });
+      })
+    };
   }
 });
