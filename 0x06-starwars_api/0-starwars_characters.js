@@ -10,7 +10,6 @@ request(`https://swapi.dev/api/films/${number}`, async (err, res, body) => {
   }
   if (res.statusCode === 200) {
     const film = JSON.parse(body);
-    console.log(film.title);
     for (const element of JSON.parse(body).characters) {
       await new Promise((resolve, reject) => {
         request(element, (err, res, body2) => {
